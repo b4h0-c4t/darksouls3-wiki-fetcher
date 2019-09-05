@@ -26,9 +26,9 @@ const getWeaponStats = async () => {
     }));
   });
 };
-const main = async () => {
+const getWeaponsData = async (path) => {
     const weapons = await getWeaponStats();
-    fs.writeFileSync('dist/weapons.json', JSON.stringify(weapons));
+    fs.writeFileSync(path, JSON.stringify(weapons));
 }
 
-main();
+export default getWeaponsData;
