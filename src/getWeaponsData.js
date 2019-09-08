@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 
 const toMaybe = x => x === undefined ? { textContent: null } : x;
 
-const getWeaponStats = async () => {
+const getWeaponsStats = async () => {
   const raw_page = await fetch('https://darksouls3-jp.wiki.fextralife.com/%E6%AD%A6%E5%99%A8');
   const text_based_page = await raw_page.text();
   const page_dom = new JSDOM(text_based_page);
@@ -26,8 +26,9 @@ const getWeaponStats = async () => {
     }));
   });
 };
+
 const getWeaponsData = async (path) => {
-    const weapons = await getWeaponStats();
+    const weapons = await getWeaponsStats();
     fs.writeFileSync(path, JSON.stringify(weapons));
 }
 
