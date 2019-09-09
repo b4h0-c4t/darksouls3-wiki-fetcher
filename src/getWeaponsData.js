@@ -29,7 +29,7 @@ const getWeaponsStats = async () => {
 
 const getWeaponsData = async (path) => {
     const weapons = await getWeaponsStats();
-    fs.writeFileSync(path, JSON.stringify(weapons));
+    fs.writeFileSync(`${path}/weapons.json`, JSON.stringify(weapons, null, 2));
 }
 
-export default getWeaponsData;
+getWeaponsData('dist');

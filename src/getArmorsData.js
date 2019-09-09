@@ -10,7 +10,7 @@ const getArmorsStat = async (url) => {
   const text_based_page = await raw_page.text();
   const page_dom = new JSDOM(text_based_page);
   const table_dom = page_dom.window.document.querySelector('.wiki_table');
-  const armorst_dom = table_dom.querySelector('tbody').querySelectorAll('tr');
+  const armors_dom = table_dom.querySelector('tbody').querySelectorAll('tr');
 
   return Array.from(armors_dom).map(row_dom => ({
     name: Array.from(toMaybe(row_dom.querySelectorAll('td')[0]).textContent).filter(x => x !== " ").join(""),
@@ -21,16 +21,16 @@ const getArmorsStat = async (url) => {
 
 const getArmorsData = async (dist_path) => {
     const helmets = await getArmorsStat('https://darksouls3-jp.wiki.fextralife.com/%E5%85%9C');
-    fs.writeFileSync(`${dist_path}/helmets.json`, JSON.stringify(helmets));
+    fs.writeFileSync(`${dist_path}/helmets.json`, JSON.stringify(helmets, null, 2));
 
     const garments = await getArmorsStat('https://darksouls3-jp.wiki.fextralife.com/%E9%8E%A7');
-    fs.writeFileSync(`${dist_path}/garments.json`, JSON.stringify(garments));
+    fs.writeFileSync(`${dist_path}/garments.json`, JSON.stringify(garments, null, 2));
 
     const backs = await getArmorsStat('https://darksouls3-jp.wiki.fextralife.com/%E6%89%8B%E7%94%B2');
-    fs.writeFileSync(`${dist_path}/backs.json`, JSON.stringify(backs));
+    fs.writeFileSync(`${dist_path}/backs.json`, JSON.stringify(backs, null, 2));
 
     const boots = await getArmorsStat('https://darksouls3-jp.wiki.fextralife.com/%E8%B6%B3%E7%94%B2');
-    fs.writeFileSync(`${dist_path}/boots.json`, JSON.stringify(boots));
+    fs.writeFileSync(`${dist_path}/boots.json`, JSON.stringify(boots, null, 2));
 }
 
-export default getArmorsData;
+getArmorsData('dist')
